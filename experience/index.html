@@ -2,6 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>
+  // Hosts with clean URLs serve this page at /experience without a trailing slash, which would load the main site's
+  // css/js/img instead of this folder's. Add the slash before anything else loads.
+  (function () { var p = location.pathname; if (!/\/$/.test(p) && !/\.html?$/.test(p)) location.replace(p + '/' + location.search + location.hash); })();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Sentinel — Securing Ground for Wildlife</title>
 <meta name="description" content="Sentinel Conservation Consulting turns conservation ambition into land that is secured, protected and reconnected across Namibia and beyond.">
