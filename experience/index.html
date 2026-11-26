@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sentinel — Securing Ground for Wildlife</title>
+<meta name="description" content="Sentinel Conservation Consulting turns conservation ambition into land that is secured, protected and reconnected across Namibia and beyond.">
+<meta name="theme-color" content="#07090a">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..600;1,6..72,200..600&family=Geist:wght@300..600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+</head>
+<body>
+
+<canvas id="world" aria-hidden="true"></canvas>
+<div class="shade" aria-hidden="true"><i class="sh-l"></i><i class="sh-c"></i><i class="sh-b"></i><i class="sh-w"></i></div>
+
+<div class="loader" id="loader">
+  <svg class="ld-mark" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" pathLength="1"/></svg>
+  <p class="ld-word">Sentinel</p>
+  <div class="ld-bar"><i></i></div>
+</div>
+
+<header class="top">
+  <a class="mark" href="#" data-go="0" aria-label="Sentinel, back to the start">
+    <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M33.2 13.4A15 15 0 1 1 26 6.3"/></svg>
+    <span>Sentinel</span>
+  </a>
+  <nav class="top-r" aria-label="Site">
+    <button class="btn-ghost" id="openIndex" aria-expanded="false" aria-controls="index"><span class="lines" aria-hidden="true"><i></i><i></i></span>Chapters</button>
+    <a class="btn-solid" href="#" data-go="10">Begin a conversation</a>
+  </nav>
+</header>
+
+<footer class="bar">
+  <p class="bar-ch" aria-live="polite"><span class="bar-num">00</span><span class="bar-name">Origin</span></p>
+  <div class="bar-track"><i class="bar-fill"></i><ol class="bar-ticks"></ol></div>
+  <button class="btn-sound" id="sound" aria-pressed="false" aria-label="Sound"><i class="eq" aria-hidden="true"><b></b><b></b><b></b><b></b></i><span>Sound</span></button>
+</footer>
+
+<p class="cue" id="cue" aria-hidden="true"><span>Scroll to begin the flight</span><i></i></p>
+
+<div class="tags" id="tags" aria-hidden="true"></div>
+
+<main class="story" id="story">
+
+  <!-- 00 Origin -->
+  <article class="beat b-hero" data-s="-1" data-e=".46">
+    <p class="kick rv">Sentinel Conservation Consulting <span class="dim">— Namibia &amp; beyond</span></p>
+    <h1 class="h-xl split">Securing ground<br><em>for wildlife.</em></h1>
+    <p class="h-sub split">Restoring the routes between.</p>
+  </article>
+  <article class="beat pos-r" data-s=".54" data-e=".98">
+    <p class="kick rv"><b>00</b>The window</p>
+    <p class="h-m split">Namibia still holds something increasingly rare: enough unbroken land, and enough will, to secure a future for black rhino and desert elephant at landscape scale.</p>
+    <p class="lead split">That window will not stay open on its own. It closes one fence, one farm boundary, one unresolved conflict at a time.</p>
+  </article>
+
+  <!-- 01 Routes -->
+  <article class="beat pos-l" data-s="1.04" data-e="1.47">
+    <p class="kick rv"><b>01</b>The routes</p>
+    <h2 class="h-l split">For generations, elephants walked <em>the same rivers.</em></h2>
+    <p class="lead split">Between the Namib and Etosha, along riverbeds that run only after rain, desert-adapted elephants followed routes older than any map.</p>
+  </article>
+  <article class="beat pos-l" data-s="1.52" data-e="1.97">
+    <p class="kick rv">Each animal below is one elephant</p>
+    <p class="num"><span data-k="ele">3,000</span></p>
+    <p class="lead split">An estimated 2,500 to 3,500 desert-adapted elephants once ranged Namibia's north-west, moving freely between water and forage.</p>
+  </article>
+  <figure class="beat frame pos-fr" data-s="1.55" data-e="1.95">
+    <div class="fr-img"><img src="img/desert-elephant-close.webp" alt="A desert-adapted elephant in the dry Huab riverbed"></div>
+    <figcaption>Desert-adapted elephant, Huab River</figcaption>
+  </figure>
+
+  <!-- 02 The Cut -->
+  <article class="beat pos-l" data-s="2.03" data-e="2.32">
+    <p class="kick rv"><b>02</b>The cut</p>
+    <h2 class="h-l split">Then the ground <em>was divided.</em></h2>
+    <p class="lead split">Farms, fences, settlements. Each boundary reasonable on its own. Together, they cut the routes the herds depend on.</p>
+  </article>
+  <article class="beat pos-l" data-s="2.36" data-e="2.63">
+    <p class="kick rv">Isolation</p>
+    <h2 class="h-l split">Pockets too small <em>to hold.</em></h2>
+    <p class="lead split">Cut off from each other, populations shrink. Where routes close, conflict opens: elephants break fences to reach water, and communities carry a cost conservation created.</p>
+  </article>
+  <article class="beat pos-l" data-s="2.67" data-e="2.98">
+    <p class="kick rv">Remaining in the south</p>
+    <p class="num num-ember"><span data-k="ele2">21</span></p>
+    <p class="lead split">In the southern range, as few as twenty-one individuals remain.</p>
+    <p class="src rv">Source: Connected Conservation Foundation satellite-tracking study, Erongo &amp; Kunene. Visualisation is illustrative.</p>
+  </article>
+
+  <!-- 03 Under Pressure -->
+  <article class="beat pos-l" data-s="3.03" data-e="3.29">
+    <p class="kick rv"><b>03</b>Under pressure</p>
+    <h2 class="h-l split">Night falls on <em>the black rhino.</em></h2>
+    <p class="lead split">Each light on the ground below is one animal.</p>
+  </article>
+  <figure class="beat frame pos-fr" data-s="3.05" data-e="3.27">
+    <div class="fr-img"><img src="img/black-rhino.webp" alt="A black rhino in thornveld"></div>
+    <figcaption>Black rhino, Diceros bicornis</figcaption>
+  </figure>
+  <article class="beat pos-l" data-s="3.32" data-e="3.75">
+    <p class="kick rv">Poached in Namibia, 2025</p>
+    <p class="num"><span data-k="rhino">0</span></p>
+    <p class="lead split">A 53% reduction, and the lowest level in more than a decade. Proof that intelligence-led, well-resourced protection changes outcomes. It is still forty-one.</p>
+  </article>
+  <article class="beat pos-l" data-s="3.79" data-e="3.98">
+    <p class="kick rv">January to April, 2026</p>
+    <p class="num num-ember">+<span data-k="rhino8">0</span></p>
+    <p class="lead split">Further incidents in the first four months of 2026, seven of them inside a formally protected park. The threat has not passed.</p>
+    <p class="src rv">Sources: WWF; Namibian Ministry of Environment, Forestry and Tourism; Xinhua (Jan–Apr 2026).</p>
+  </article>
+
+  <!-- 04 The Gap -->
+  <article class="beat pos-c" data-s="4.04" data-e="4.33">
+    <p class="kick rv"><b>04</b>The gap</p>
+    <h2 class="h-xl2 split">Conservation rarely fails for lack of <em>ambition.</em></h2>
+  </article>
+  <article class="beat pos-c" data-s="4.37" data-e="4.64">
+    <h2 class="h-l split">It fails in the gap between those who want to protect nature, <em>and those responsible for making it happen.</em></h2>
+  </article>
+  <article class="beat pos-c" data-s="4.68" data-e="4.98">
+    <div class="trio">
+      <div class="rv"><span class="kick">i. Governments &amp; funders</span><p>Hold the mandate and the capital, not always the capacity to turn ambition into functioning land.</p></div>
+      <div class="rv"><span class="kick">ii. Landowners</span><p>Hold the land itself, not always ecology, security and community relations at once.</p></div>
+      <div class="rv"><span class="kick">iii. Communities</span><p>Carry the cost of conflict, and are the first line of protection when they have a reason to be.</p></div>
+    </div>
+    <p class="h-m split">Sentinel stands in that gap. Not a desk-based consultancy: everything we offer has already been proven on the ground.</p>
+  </article>
+
+  <!-- 05 Range Circle -->
+  <article class="beat pos-l" data-s="5.02" data-e="5.19">
+    <p class="kick rv"><b>05</b>The method</p>
+    <h2 class="h-l split">The Range Circle<sup>™</sup></h2>
+    <p class="lead split">Four working pillars around one centre: secured, living ground.</p>
+  </article>
+  <article class="beat pos-l pillar" data-s="5.21" data-e="5.39">
+    <p class="kick rv">01 / 04 — Security</p>
+    <h2 class="h-l split">Protect <em>what matters.</em></h2>
+    <ul class="list rv"><li>Anti-poaching strategy</li><li>Intelligence &amp; risk assessment</li><li>Ranger support &amp; training</li><li>Technology integration</li></ul>
+    <p class="proof rv"><span>Proof</span>Intelligence-led anti-poaching work alongside the Namibian Police and the Protected Resources Unit.</p>
+  </article>
+  <article class="beat pos-l pillar" data-s="5.41" data-e="5.59">
+    <p class="kick rv">02 / 04 — Land</p>
+    <h2 class="h-l split">Secure <em>the ground.</em></h2>
+    <ul class="list rv"><li>Land acquisition advisory</li><li>Conservation area design</li><li>Legal &amp; regulatory support</li><li>Sustainable land-use planning</li></ul>
+    <p class="proof rv"><span>Proof</span>Gondwana ERP Rhino Sanctuary: ~40,000 ha secured within a ~200,000 ha protected landscape.</p>
+  </article>
+  <article class="beat pos-l pillar" data-s="5.61" data-e="5.79">
+    <p class="kick rv">03 / 04 — Corridor</p>
+    <h2 class="h-l split">Reconnect <em>the routes.</em></h2>
+    <ul class="list rv"><li>Wildlife movement planning</li><li>Corridor design &amp; implementation</li><li>Cross-boundary collaboration</li><li>Monitoring &amp; adaptive management</li></ul>
+    <p class="proof rv"><span>Proof</span>Huab Elephant Corridor: ~60,000 ha encompassed, ~35,000 ha secured directly.</p>
+  </article>
+  <article class="beat pos-l pillar" data-s="5.81" data-e="5.99">
+    <p class="kick rv">04 / 04 — Coexistence</p>
+    <h2 class="h-l split">People <em>in the landscape.</em></h2>
+    <ul class="list rv"><li>Community engagement</li><li>Human-wildlife conflict solutions</li><li>Local economic opportunity</li><li>Shared value creation</li></ul>
+    <p class="proof rv"><span>Proof</span>Partnerships with neighbouring conservation-minded landowners along the Huab corridor.</p>
+  </article>
+
+  <!-- 06 Proof -->
+  <article class="beat pos-l" data-s="6.02" data-e="6.14">
+    <p class="kick rv"><b>06</b>Proof of work</p>
+    <h2 class="h-l split">Not modelled on paper. <em>Secured on the ground.</em></h2>
+  </article>
+  <article class="beat pos-l case" data-s="6.17" data-e="6.47">
+    <p class="kick rv">Case 01 — Southern Namibia · Fish River Canyon</p>
+    <h2 class="h-l split">Gondwana ERP <em>Rhino Sanctuary</em></h2>
+    <p class="num num-s"><span data-k="haA">0</span><small>ha</small></p>
+    <p class="kick rv dim">secured · within ~200,000 ha of protected landscape</p>
+    <ul class="list rv"><li>Joint venture with the Gondwana Group, Namibia's largest inbound tourism operator</li><li>ERP leads rhino security; tourism continues across the same landscape</li><li>Tourism levies fund ongoing operations after ERP funded the capital</li></ul>
+  </article>
+  <article class="beat pos-l case" data-s="6.55" data-e="6.98">
+    <p class="kick rv">Case 02 — North-west Namibia · Huab River</p>
+    <h2 class="h-l split">Huab <em>Elephant Corridor</em></h2>
+    <p class="num num-s"><span data-k="haB">0</span><small>ha</small></p>
+    <p class="kick rv dim">secured directly · of a ~60,000 ha corridor</p>
+    <ul class="list rv"><li>Internal fencing removed, returning the river routes to the elephants</li><li>Water points installed to keep herds and commercial farms apart</li><li>Adjacent properties still being acquired; next, Botswana &amp; beyond</li></ul>
+  </article>
+
+  <!-- 07 Founder -->
+  <article class="beat pos-l" data-s="7.02" data-e="7.16">
+    <p class="kick rv"><b>07</b>The founder</p>
+    <h2 class="h-xl2 split">Tinus <em>Hansen</em></h2>
+    <p class="lead split">His path into conservation was not academic. It was built over three decades, one stage at a time.</p>
+  </article>
+  <article class="beat pos-l stage" data-s="7.18" data-e="7.29"><p class="kick rv">Stage 01 — Discipline</p><h3 class="h-m split">South African Marine Corps.</h3><p class="lead split">Border deployment, then harbour patrol in Simon's Town. Operational structure under pressure.</p></article>
+  <article class="beat pos-l stage" data-s="7.30" data-e="7.41"><p class="kick rv">Stage 02 — Corporate leadership</p><h3 class="h-m split">Twelve years at Shell Namibia.</h3><p class="lead split">From retail administrative assistant to Retail Manager for the country. Governance, budgets and board reporting, understood from the inside.</p></article>
+  <article class="beat pos-l stage" data-s="7.42" data-e="7.53"><p class="kick rv">Stage 03 — Enterprise &amp; wilderness</p><h3 class="h-m split">Built a company. Sold it. Went back to the wild.</h3><p class="lead split">A safety-equipment business sold to a Johannesburg group, then years as a registered professional hunter in Namibia's most remote country.</p></article>
+  <article class="beat pos-l stage" data-s="7.54" data-e="7.65"><p class="kick rv">Stage 04 — Endurance</p><h3 class="h-m split">One hundred kilometres of canyon.</h3><p class="lead split">Founder of the Namib Quest and the Fish River Canyon Ultra. Eight years moving people, crews and equipment through wilderness.</p></article>
+  <article class="beat pos-l stage" data-s="7.66" data-e="7.77"><p class="kick rv">Stage 05 — Intelligence</p><h3 class="h-m split">Co-founded ISAP.</h3><p class="lead split">Intelligence Support Against Poaching, with the Namibian Police and the Protected Resources Unit: sting operations against the pangolin trade and rhino poaching.</p></article>
+  <article class="beat pos-l stage" data-s="7.78" data-e="7.87"><p class="kick rv">Stage 06 — 2022</p><h3 class="h-m split">Leading ERP Namibia.</h3><p class="lead split">Elephants, Rhinos &amp; People. Two landscape-scale projects later, a significant regional initiative.</p></article>
+  <article class="beat pos-c" data-s="7.89" data-e="7.99">
+    <p class="h-xl2 split"><em>“Built by doing,</em><br>not by advising.”</p>
+  </article>
+
+  <!-- 08 CSI -->
+  <article class="beat pos-l" data-s="8.03" data-e="8.3">
+    <p class="kick rv"><b>08</b>CSI project partner</p>
+    <h2 class="h-l split">From boardroom budget to <em>ground you can stand on.</em></h2>
+    <p class="lead split">One partner from the first conversation to the final impact report: designed, run in remote places, and reported to board standard.</p>
+  </article>
+  <article class="beat pos-w" data-s="8.33" data-e="8.64">
+    <ol class="steps">
+      <li class="rv"><b>01</b><span>Align</span><p>CSI focus, scorecard targets, regions and goals.</p></li>
+      <li class="rv"><b>02</b><span>Design</span><p>Sites, landowners, partners, budget, KPIs.</p></li>
+      <li class="rv"><b>03</b><span>Commit</span><p>Funding agreement, ring-fenced accounts, baselines.</p></li>
+      <li class="rv"><b>04</b><span>Manage</span><p>Rangers, contractors and spending on the ground.</p></li>
+      <li class="rv"><b>05</b><span>Report</span><p>Live dashboard, board packs, annual impact report.</p></li>
+    </ol>
+  </article>
+  <article class="beat pos-w" data-s="8.67" data-e="8.98">
+    <h2 class="h-m split">Governance a board can trust, and credits <em>designed in from day one.</em></h2>
+    <ul class="gov rv"><li>Ring-fenced funds</li><li>Delegated approvals</li><li>Steering committee</li><li>Independent annual audit</li><li>Tax-deductible structure</li><li>Conflicts declared</li></ul>
+    <p class="lead split">Projects that protect and restore habitat can, once independently verified, generate carbon and biodiversity credits: a medium-to-long-term return on the investment.</p>
+  </article>
+
+  <!-- 09 Engage -->
+  <article class="beat pos-l" data-s="9.03" data-e="9.3">
+    <p class="kick rv"><b>09</b>Work with Sentinel</p>
+    <h2 class="h-l split">Start with one question, or commission <em>the whole journey.</em></h2>
+  </article>
+  <article class="beat pos-w engage" data-s="9.33" data-e="9.99">
+    <ol class="ways">
+      <li class="rv"><b>01</b><div><h3>Feasibility &amp; Security Assessment</h3><p>A scoped site visit and land, wildlife and security assessment, closing in a clear go / no-go report.</p></div><span>Clarity</span></li>
+      <li class="rv"><b>02</b><div><h3>Full Design &amp; Establishment</h3><p>Land assembly, security protocol, corridor plan and community partnership, carried through to the ground.</p></div><span>Impact</span></li>
+      <li class="rv"><b>03</b><div><h3>Regional Conservation Partnership</h3><p>A standing, multi-year advisory relationship for a government, conservancy network or funder.</p></div><span>Long-term value</span></li>
+      <li class="rv"><b>04</b><div><h3>CSI Project Partner</h3><p>Conservation projects designed for CSI budgets, managed on the ground and reported to your board.</p></div><span>Measurable return</span></li>
+    </ol>
+    <p class="kick rv dim">For private landowners · governments &amp; conservancies · philanthropic funders · corporates &amp; ESG partners</p>
+  </article>
+
+  <!-- 10 Close -->
+  <article class="beat pos-c" data-s="10.03" data-e="10.46">
+    <p class="kick rv"><b>10</b>The window is still open</p>
+    <h2 class="h-xl split">Connected landscapes.<br><em>Brighter tomorrows.</em></h2>
+  </article>
+  <article class="beat pos-c close" data-s="10.5" data-e="12">
+    <p class="lead split">The most useful first conversation is usually the shortest: a single piece of land, a single corridor question, a single proposal that needs a credible partner.</p>
+    <form class="starter" id="starter">
+      <fieldset class="rv"><legend class="kick">I am</legend>
+        <label><input type="radio" name="who" value="a landowner" checked><span>a landowner</span></label>
+        <label><input type="radio" name="who" value="in government or a conservancy"><span>in government</span></label>
+        <label><input type="radio" name="who" value="a funder or NGO"><span>a funder or NGO</span></label>
+        <label><input type="radio" name="who" value="managing a CSI / ESG budget"><span>a CSI / ESG lead</span></label>
+      </fieldset>
+      <button class="cta rv" type="submit"><span>Begin a conversation</span><i></i></button>
+    </form>
+    <p class="sign rv"><span>Tinus Hansen</span><span class="dim">Founder &amp; Principal Consultant</span></p>
+    <footer class="foot rv"><span>Sentinel Conservation Consulting</span><span>Land · Wildlife · People · Legacy</span><span>© 2026</span></footer>
+  </article>
+</main>
+
+<div class="index" id="index" aria-hidden="true">
+  <div class="ix-in">
+    <p class="ix-kick">Eleven chapters · one landscape · dawn to dawn</p>
+    <ol class="ix-list"></ol>
+  </div>
+  <button class="ix-close" id="closeIndex" aria-label="Close chapters">Close</button>
+</div>
+
+<div class="track" id="track">
+  <section class="ch" data-name="Origin" style="--h:260"></section>
+  <section class="ch" data-name="The Routes" style="--h:320"></section>
+  <section class="ch" data-name="The Cut" style="--h:380"></section>
+  <section class="ch" data-name="Under Pressure" style="--h:420"></section>
+  <section class="ch" data-name="The Gap" style="--h:280"></section>
+  <section class="ch" data-name="The Range Circle" style="--h:460"></section>
+  <section class="ch" data-name="Proof of Work" style="--h:380"></section>
+  <section class="ch" data-name="The Founder" style="--h:560"></section>
+  <section class="ch" data-name="CSI Partner" style="--h:360"></section>
+  <section class="ch" data-name="Work With Us" style="--h:300"></section>
+  <section class="ch" data-name="The Window" style="--h:300"></section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
