@@ -130,7 +130,9 @@ ${COMMON}
 uniform vec3 uSand, uGravel, uRock, uBasalt, uDune, uBed, uVeg, uFenceCol, uSiteCol;
 uniform float uFence, uFenceA, uFenceGlow, uRestore, uTrails, uCloud, uShadow, uReveal;
 uniform vec4 uSiteA, uSiteB; uniform vec2 uSiteAmt;
+uniform vec4 uRing; uniform float uRingDraw, uQuad, uQuadAmt; uniform vec4 uFocus[3]; uniform vec3 uLineCol;
 varying vec3 vPos; varying vec3 vN; varying vec4 vInfo;
+float aaLine(float d, float w){ float fw = max(fwidth(d), 1e-4); float ww = max(w, fw*.8); return (1. - smoothstep(ww - fw*.6, ww + fw*.6, abs(d)))*min(1., w/ww); }
 
 float softShadow(vec3 p, vec3 L){
   if (L.y < -.02 || uShadow < .01) return 1.;
@@ -230,6 +232,41 @@ void main(){
   col += uFenceCol*track*uFenceGlow*uFenceA*.16;
 
   col = applyFog(col, vPos);
+  vec3 E = vec3(0.);
+  if (uRing.w > .001){
+    vec2 rp = p - uRing.xy; float rr = length(rp), R = uRing.z;
+    float an = fract(atan(rp.x, -rp.y)/6.2831853 + 1.);
+    float drawn = smoothstep(an - .002, an + .004, uRingDraw);
+    float qf = an*4., qi = floor(qf), qe = abs(fract(qf) - .5);
+    float gap = 1. - smoothstep(.478, .488, qe);
+    float act = mix(.45, 1. - smoothstep(0., 1., abs(qi - uQuad)), uQuadAmt);
+    float arc = aaLine(rr - R, mix(.3, .75, act))*gap;
+    float glow = exp(-abs(rr - R)/mix(1.6, 5., act))*mix(.08, .55, act)*gap;
+    float tw = abs(fract(an*96. + .5) - .5)*6.2831853*rr/96.;
+    float tick = aaLine(tw, .14)*step(R + 3., rr)*step(rr, R + 7.);
+    float mw = abs(fract(an*12. + .5) - .5)*6.2831853*rr/12.;
+    float tickM = aaLine(mw, .24)*step(R + 3., rr)*step(rr, R + 12.);
+    float inner = aaLine(rr - R*.6, .16)*.55 + aaLine(rr - R*.08, .2)*.8;
+    float dq = abs(fract(an - (uQuad + .5)/4. + .5) - .5);
+    float pulse = exp(-pow(dq*34., 2.))*uQuadAmt*aaLine(rr - R, 1.6);
+    float sect = act*uQuadAmt*(1. - smoothstep(R - 3., R, rr))*smoothstep(R*.08, R*.2, rr);
+    E += uLineCol*(arc*1.05 + glow + (tick*.5 + tickM)*(.45 + .55*act) + inner*.6 + pulse*1.4 + sect*.05)*drawn*uRing.w;
+  }
+  for (int k = 0; k < 2; k++){
+    vec4 st = k == 0 ? uSiteA : uSiteB; float amt = k == 0 ? uSiteAmt.x : uSiteAmt.y;
+    if (amt < .001) continue;
+    vec2 d = p - st.xy; float r = length(d);
+    float an = fract(atan(d.x, -d.y)/6.2831853 + 1.);
+    float drawn = smoothstep(an - .002, an + .004, amt*1.02);
+    E += uLineCol*((aaLine(r - st.z, .4)*1.1 + exp(-abs(r - st.z)/3.)*.4)*drawn + (aaLine(r - st.w, .2)*.5 + exp(-abs(r - st.w)/2.)*.08)*smoothstep(.5, 1., amt) + (1. - smoothstep(st.z - 2., st.z, r))*.05*amt);
+  }
+  for (int k = 0; k < 3; k++){
+    if (uFocus[k].w < .001) continue;
+    float d = length(p - uFocus[k].xy), r = uFocus[k].z;
+    float ph = fract(uTime*.28 + float(k)*.33);
+    E += uLineCol*(aaLine(d - r, .22) + exp(-abs(d - r)/1.4)*.25 + aaLine(d - r*(1. + ph*1.3), .18)*(1. - ph)*.7 + exp(-d/(r*.35))*.16)*uFocus[k].w;
+  }
+  col += E;
   float r0 = length(p);
   col = mix(uFogCol*.0, col, smoothstep(uReveal, uReveal - 260., r0));
   gl_FragColor = vec4(col, 1.);
@@ -559,7 +596,9 @@ export function createWorld(canvas, opts = {}) {
     uFenceCol: { value: C('#ffb469').multiplyScalar(2.2) }, uSiteCol: { value: C('#ffe6b8') },
     uFence: { value: 0 }, uFenceA: { value: 1 }, uFenceGlow: { value: 0 }, uRestore: { value: 0 }, uTrails: { value: 1 },
     uCloud: { value: 0.35 }, uReveal: { value: 0 },
-    uSiteA: { value: new THREE.Vector4() }, uSiteB: { value: new THREE.Vector4() }, uSiteAmt: { value: new THREE.Vector2() }
+    uSiteA: { value: new THREE.Vector4() }, uSiteB: { value: new THREE.Vector4() }, uSiteAmt: { value: new THREE.Vector2() },
+    uRing: { value: new THREE.Vector4(0, 0, 120, 0) }, uRingDraw: { value: 0 }, uQuad: { value: 0 }, uQuadAmt: { value: 0 },
+    uFocus: { value: [new THREE.Vector4(), new THREE.Vector4(), new THREE.Vector4()] }, uLineCol: { value: C('#ffe8c6').multiplyScalar(1.5) }
   };
   const terrain = new THREE.Mesh(geo, new THREE.ShaderMaterial({ uniforms: TU, vertexShader: TERRAIN_VS, fragmentShader: TERRAIN_FS }));
   scene.add(terrain);
@@ -759,7 +798,7 @@ export function createWorld(canvas, opts = {}) {
     g.setIndex(idx);
     const u = { uCol: { value: C(col).multiplyScalar(3) }, uDraw: { value: 0 }, uAlpha: { value: 0 }, uQuad: { value: -1 }, uGap: { value: 0 }, uDash: { value: 0 }, uH: { value: height } };
     const mesh = new THREE.Mesh(g, new THREE.ShaderMaterial({ uniforms: u, vertexShader: RIBBON_VS, fragmentShader: RIBBON_FS, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide }));
-    mesh.frustumCulled = false;
+    mesh.frustumCulled = false; mesh.visible = false;
     scene.add(mesh);
     return u;
   }

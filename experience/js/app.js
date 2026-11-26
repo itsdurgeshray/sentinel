@@ -271,6 +271,9 @@ function direct(Sv, t, dt) {
   W.ring.uAlpha.value = ringA; W.ring.uDraw.value = ringD;
   W.ring.uQuad.value = Sv >= 5.2 && Sv < 6.0 ? Math.min(3, Math.floor((Sv - 5.2) / 0.2)) : -1;
   W.ringInner.uAlpha.value = ringA * 0.35; W.ringInner.uDraw.value = ringD;
+  T.uRing.value.w = ringA; T.uRingDraw.value = ringD;
+  T.uQuad.value = K(Sv, [[5.2, 0], [5.37, 0], [5.43, 1], [5.57, 1], [5.63, 2], [5.77, 2], [5.83, 3]]);
+  T.uQuadAmt.value = K(Sv, [[5.17, 0], [5.23, 1], [5.99, 1], [6.06, 0]]);
   const sa = K(Sv, KEYS.siteA), sb = K(Sv, KEYS.siteB);
   W.siteA.uAlpha.value = sa; W.siteA.uDraw.value = sa; W.siteAo.uAlpha.value = sa * 0.7; W.siteAo.uDraw.value = sa;
   W.siteB.uAlpha.value = sb; W.siteB.uDraw.value = sb; W.siteBo.uAlpha.value = sb * 0.7; W.siteBo.uDraw.value = sb;
@@ -391,20 +394,20 @@ const tags = [];
 function setupTags() {
   if (!world) return;
   const W = world, layer = $('#tags');
-  const mk = (label, sub, get, keys, cls = '', lh = 40) => {
+  const mk = (label, sub, get, keys, cls = '', lh = 40, slot, fr = 5) => {
     const el = document.createElement('div');
     el.className = `tag ${cls}`;
     el.style.setProperty('--lh', `${lh}px`);
     el.innerHTML = `<i class="tg-dot"></i><i class="tg-line"></i><span>${label}${sub ? `<b>${sub}</b>` : ''}</span>`;
     layer.appendChild(el);
-    const t = { el, get, keys, o: {}, sub: el.querySelector('b') };
+    const t = { el, get, keys, o: {}, sub: el.querySelector('b'), slot, fr };
     tags.push(t);
     return t;
   };
   const onPath = (path, t, lift = 2, off = 0) => { const p = path.at(t); const x = p.x + p.nx * off, z = p.z + p.nz * off; return () => [x, W.heightAt(x, z) + lift, z]; };
-  mk('Huab River', 'Dry riverbed', onPath(W.corridor, 0.36, 3), [[1.06, 0], [1.16, 1], [1.92, 1], [2.04, 0]], '', 54);
-  mk('New fence line', 'Farm boundary', () => { const w = W.walls[2]; return [w.x, w.y + 4, w.z]; }, [[2.16, 0], [2.24, 1], [2.6, 1], [2.68, 0]], '', 46);
-  mk('Black rhino', 'Protected range', () => [W.rhino.x - 40, W.heightAt(W.rhino.x - 40, W.rhino.z + 50) + 2, W.rhino.z + 50], [[3.08, 0], [3.18, 1], [3.95, 1], [4.05, 0]], '', 46);
+  mk('Huab River', 'Dry riverbed', onPath(W.corridor, 0.36, 3), [[1.06, 0], [1.16, 1], [1.92, 1], [2.04, 0]], '', 54, 0, 7);
+  mk('New fence line', 'Farm boundary', () => { const w = W.walls[2]; return [w.x, w.y + 4, w.z]; }, [[2.16, 0], [2.24, 1], [2.6, 1], [2.68, 0]], '', 46, 1, 5);
+  mk('Black rhino', 'Protected range', () => [W.rhino.x - 40, W.heightAt(W.rhino.x - 40, W.rhino.z + 50) + 2, W.rhino.z + 50], [[3.08, 0], [3.18, 1], [3.95, 1], [4.05, 0]], '', 46, 2, 9);
   const R = 120;
   ['Security', 'Land', 'Corridor', 'Coexistence'].forEach((n, q) => {
     const a = ((q + 0.5) / 4) * Math.PI * 2;
@@ -423,13 +426,15 @@ function setupTags() {
   km.isKm = true;
 }
 function updateTags(Sv) {
+  const F = world.TU.uFocus.value; F.forEach((f) => { f.w = 0; });
   for (const t of tags) {
     let vis = K(Sv, t.keys) * introS.k;
     if (vis < 0.01) { if (t.el.style.opacity !== '0') t.el.style.opacity = '0'; continue; }
     const [x, y, z] = t.get();
     world.project(x, y, z, t.o);
+    if (t.slot !== undefined) F[t.slot].set(x, z, t.fr, vis);
     if (!t.o.on) vis = 0;
-    if (t.quad !== undefined) { const q = world.ring.uQuad.value; vis *= q === t.quad ? 1 : (q < 0 ? 0.85 : 0.4); }
+    if (t.quad !== undefined) { const q = world.TU.uQuad.value, qa = world.TU.uQuadAmt.value; vis *= lerp(0.8, Math.max(0.32, 1 - Math.abs(q - t.quad)), qa); }
     if (t.isKm && t.sub) t.sub.textContent = `Kilometre ${counters.km}`;
     t.el.style.opacity = vis.toFixed(3);
     t.el.style.transform = `translate3d(${t.o.x.toFixed(1)}px, ${t.o.y.toFixed(1)}px, 0)`;
